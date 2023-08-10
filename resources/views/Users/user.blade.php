@@ -245,7 +245,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="active-menu" href="/"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
@@ -319,7 +319,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Responsive Table Example
+                                Users
                             </div> 
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -330,7 +330,7 @@
                                                 <th>Email</th>
                                                 <th>Role Access</th>
                                                 <th>Status</th>
-                                                <th style="text-align: right;">Action</th   >
+                                                <th style="text-align: right;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

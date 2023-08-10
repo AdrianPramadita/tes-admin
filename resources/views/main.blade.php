@@ -245,7 +245,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href=""><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="active-menu" href="/"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="/users/user"><i class="fa fa-users"></i> Users</a>
