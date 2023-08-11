@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -8,13 +8,13 @@ use Zend\Crypt\Password\Bcrypt;
 use App\Http\Controllers\Handlers\PermissionuserHandler;
 use Exception;
 
-class UserController extends Controller
+class StoreGroupController extends Controller
 {
     public function __construct()
     {
         $this->properties = [
-            "header" => "Users",
-            "activeUrl" => "/users/user"
+            "header" => "Group Store",
+            "activeUrl" => "/master/group-store"
         ];
         $this->properties = (object) $this->properties;
     }
@@ -26,21 +26,57 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = DB::table('users')->select(
-            'users.*',
-            // 'role_management.role_name'
+        $grpStore = DB::table('im_store_group')->select(
+            'im_store_group.*',
         )
-        // ->leftJoin("role_management", "role_management.id", "=", "users.role_access")
-        ->whereNull('users.deleted_at')
-        ->orderBy("users.created_at", "ASC")
+        // ->leftJoin("im_store_master", "im_store_master.id", "=", "im_store_group.store_id")
+        ->whereNull('im_store_group.deleted_at')
+        ->orderBy("im_store_group.created_at", "ASC")
         ->get();
-        // return $user;
+        // return $grpStore;
 
-        return view('Users.user',
+        return view('Master.StoreGroup.storeGroup',
             array(
                 "properties" => $this->properties,
-                "data" => $user,
-                // "permission" => $permission,
+                "data" => $grpStore,
+            )
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function openForm()
+    {
+        if(session("iLogged") == false || session("iLogged") == null){
+            return redirect('login');
+        }
+
+        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
+        if($permission->create == false){
+            return view('Errors.permission-denied',
+                array(
+                    "properties" => $this->properties,
+                )
+            );
+        }
+
+        $store = DB::table("im_store_master")->select("*")
+        ->whereNull("deleted_at")
+        ->where("active_flag", "active")
+        ->orderBy("im_store_master.created_at", "ASC")
+        ->get();
+
+        // return $spg;
+
+        return view('Master.StoreGroup.add-storeGroup',
+            array(
+                "properties" => $this->properties,
+                "store" => $store,
+                "permission" => $permission,
+                "disabled" => "",
             )
         );
     }
@@ -57,9 +93,7 @@ class UserController extends Controller
         }
 
         $this->validate($request, [
-            'full_name' => 'required|max:255',
-            'email_address' => 'required|email',
-            'password' => 'required|min:8|max:12',
+            'group_code' => 'required|max:255',
         ]);
 
         $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
@@ -70,17 +104,12 @@ class UserController extends Controller
                 throw new \Exception('You dont have permission to write data. Please contact your administrator');
             }
 
-            $bcrypt = new Bcrypt();
-            $securePass = $bcrypt->create($request->password);
+            // $bcrypt = new Bcrypt();
+            // $securePass = $bcrypt->create($request->password);
 
-            DB::table("users")->insert([
-                "name" => $request->full_name,
-                "email" => $request->email_address,
-                "password" => $securePass,
-                "job_title" => $request->job_title,
-                "department" => $request->department,
-                "address" => $request->address,
-                "role_access" => $request->role_access,
+            DB::table("im_store_group")->insert([
+                "store_group_code" => $request->group_code,
+                "store_group_desc" => $request->group_desc,
                 "status" => "active",
                 "created_by" => session("user_id"),
                 "created_at" => now(),
@@ -143,34 +172,13 @@ class UserController extends Controller
         }
 
         try{
-            $event = DB::table("im_event")->select("*")->where("id", $request->query('id'))->first();
+            $grpStore = DB::table("im_store_group")->select("*")->where("id", $request->query('id'))->first();
 
-            $store = DB::table("im_store_master")->select("*")
-            ->whereNull("deleted_at")
-            ->where("active_flag", "active")
-            ->orderBy("im_store_master.created_at", "ASC")
-            ->get();
-
-            $str_group = DB::table("im_store_group")->select("*")
-            ->whereNull("deleted_at")
-            ->where("status", "active")
-            ->orderBy("created_at", "ASC")
-            ->get();
-
-            $import_prd = DB::table("temporary_import_prd")->select("*")
-            ->whereNull("deleted_at")
-            ->orderBy("id", "ASC")
-            ->get();
-            // return $import_prd;
-
-            return view('Master.Event.update-event',
+            return view('Master.StoreGroup.update-storeGroup',
                 array(
                     "properties" => $this->properties,
                     "id" => $request->query('id'),
-                    "store" => $store,
-                    "str_group" => $str_group,
-                    "data" => $event,
-                    "import" => $import_prd,
+                    "data" => $grpStore,
                     "disabled" => $request->query('disabled'),
                     "permission" => $permission,
                 )
@@ -199,7 +207,7 @@ class UserController extends Controller
         }
 
         $this->validate($request, [
-            'event_code' => 'required|max:255',
+            'group_code' => 'required|max:255',
         ]);
 
         $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
@@ -211,31 +219,13 @@ class UserController extends Controller
             }
 
             /** data salesman */
-            $spg = DB::table('master_salesman')->select('*')->where("id", $request->id)->first();
+            // $grpStore = DB::table('im_store_group')->select('*')->where("id", $request->id)->first();
 
-            // $securePass = $spg->password;
-            // if($request->password != ""){
-            //     $bcrypt = new Bcrypt();
-            //     $securePass = $bcrypt->create($request->password);
-            // }
-
-            DB::table("im_event")
+            DB::table("im_store_group")
             ->where("id", $request->id)
             ->update([
-                "event_code" => $request->event_code,
-                "event_desc" => $request->event_desc,
-                "store_id" => $request->store_id,
-                "disc_type" => $request->disc_type,
-                "disc1" => str_replace(",", "", $request->disc1),
-                "disc2" => str_replace(",", "", $request->disc2),
-                "disc_opt1" => $request->disc_opt1,
-                "disc_opt2" => $request->disc_opt2,
-                "margin" => str_replace(",", "", $request->margin),
-                "margin_opt" => $request->margin_opt,
-                "participation" => str_replace(",", "", $request->participation),
-                "special_price" => str_replace(",", "", $request->special_price),
-                "date_from" => date('Y-m-d', strtotime($request->date_from)),
-                "date_to" => date('Y-m-d', strtotime($request->date_to)),
+                "store_group_code" => $request->group_code,
+                "store_group_desc" => $request->group_desc,
                 "status" => "active",
                 "updated_by" => session("user_id"),
                 "updated_at" => now(),
@@ -274,7 +264,7 @@ class UserController extends Controller
                 throw new Exception('You dont have permission to write data. Please contact your administrator');
             }
 
-            DB::table("im_event")
+            DB::table("im_store_group")
             ->where("id", $request->id)
             ->update([
                 "deleted_by" => session("user_id"),
@@ -292,88 +282,5 @@ class UserController extends Controller
                 "errors" => $e,
             ])->setStatusCode(500);
         }
-    }
-
-    public function storeGroup(Request $request)
-    {
-        $store = DB::table("im_store_master")->select("*")
-            ->whereNull("deleted_at")
-            ->where("store_group", $request->group_id)
-            ->where("active_flag", "active")
-            ->orderBy("im_store_master.created_at", "ASC")
-            ->get();
-
-        return collect($store)->map(function($v){
-            return $v->id;
-        });
-    }
-
-    public function active(Request $request)
-    {
-            
-        $currentDate = date('Y-m-d', strtotime('now'));
-
-        $evt = DB::table("im_event")->select("*")
-        ->whereNull("deleted_at")
-        ->where("date_from", ">=", $currentDate)
-        ->orderBy("created_at", "ASC")
-        ->update([
-            "status" => "active",
-        ]);
-        // ->get();
-
-        // return $evt;
-    }
-
-    public function inActive(Request $request)
-    {
-            
-        $currentDate = date('Y-m-d', strtotime('now'));
-
-        $evt = DB::table("im_event")->select("*")
-        ->whereNull("deleted_at")
-        ->where("date_to", "<", $currentDate)
-        ->orderBy("created_at", "ASC")
-        ->update([
-            "status" => "in-active",
-        ]);
-        // ->get();
-
-        // return $evt;
-    }
-
-    public function importExcel(Request $request)
-    {
-        $file = $request->file('file');
-        $namaFile = $file->getClientOriginalName();
-        $file->move('Downloads', $namaFile);
-        
-        $input = $request->input_alphanum;
-        
-        // import data
-        $filePath = public_path('/Downloads/' . $namaFile);
-
-        // $result = Excel::import(new ProduksImport, $filePath);
-        $array = Excel::toArray(new ProduksImport, $filePath);
-        // return $array;
-        // print_r ($array[0]);
-        foreach ($array[0] as $value) {
-            // print_r ($value);
-            $createTemp = EventPrd::insertGetId([
-                "prd_code" => $value[1],
-                "prd_name" => $value[2],
-                "category" => $value[3],
-                "brand" => $value[4],
-                "session_id" => $input,
-            ]);            
-        };
-	    
-        DB::table("temporary_import_prd")->whereNull('prd_code')->where('prd_code', '=', 'Produk Kode')->delete();
-
-        // notifikasi dengan session
-        // Session::flash('sukses','Data Produk Berhasil Diimport!');
-    
-        // alihkan halaman kembali
-        return redirect('/master/event/create?session='.$input);
     }
 }

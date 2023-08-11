@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="shortcut icon" type="image/x-icon" href="{!! URL::asset('assets/img/logo/admin.jpg') !!}">
-    <title>Dream</title>
+    <title>Free Bootstrap Admin Template : Dream</title>
     <!-- Bootstrap Styles-->
     <link href="{{ asset ('style/assets/css/bootstrap.css') }}" rel="stylesheet" />
     <!-- FontAwesome Styles-->
@@ -29,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Dream</a>
+                <a class="navbar-brand" href="index.html">Dream</a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -247,24 +245,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="/"><i class="fa fa-dashboard"></i>Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="/users/user"><i class="fa fa-users"></i> Users</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Master<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Produk</a>
-                            </li>
-                            <li>
-                                <a href="master/group-store">Store Group</a>
-                            </li>
-                            <li>
-                                <a href="#">Store</a>
-                            </li>
-                        </ul>
+                        <a class="active-menu" href="/"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
@@ -326,66 +307,57 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header" href="/">
-                            Dashboard
+                        <h1 class="page-header">
+                            Store Group
                         </h1>
                     </div>
                 </div>
                 <!-- /. ROW  -->
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green">
-                            <div class="panel-body">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                <h3>8,457</h3>
-                            </div>
-                            <div class="panel-footer back-footer-green">
-                                Daily Visits
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-blue">
-                            <div class="panel-body">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
-                                <h3>52,160 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-blue">
-                                Sales
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red">
-                            <div class="panel-body">
-                                <i class="fa fa fa-comments fa-5x"></i>
-                                <h3>15,823 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-red">
-                                Comments
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-brown">
-                            <div class="panel-body">
-                                <i class="fa fa-users fa-5x"></i>
-                                <h3>36,752 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-brown">
-                                No. of Visits
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-8 col-sm-12 col-xs-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                store group
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Group Code</th>
+                                                <th>Description</th>
+                                                <th>Status</th>
+                                                <th style="text-align: right;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data as $el)
+                                                <tr>
+                                                    <td>{{ $el->store_group_code }}</td>
+                                                    <td>{{ $el->store_group_desc }}</td>
+                                                    <td>
+                                                        <span class="badge bg-success">Active</span>
+                                                    </td>
+                                                    <td style="display: flex; justify-content: flex-end">
+                                                        <div class="buttons">
+                                                            
+                                                            <a href="{{ $properties->activeUrl }}/update?id={{$el->id}}&disabled=" class="btn icon btn-primary"><i class="bi bi-pencil"></i></a>
+
+                                                            <a href="{{ $properties->activeUrl }}/update?id={{$el->id}}&disabled=disabled" class="btn icon btn-secondary"><i class="bi bi-info-circle"></i></a>
+                                                            
+                                                            <button type="button" class="btn icon btn-danger" onClick="destoryFunctions({{$el->id}})"><i class="bi bi-x"></i></button>
+                                                            
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -410,7 +382,108 @@
     <!-- Custom Js -->
     <script src="{{ asset('style/assets/js/custom-scripts.js') }}"></script>
 
+<!-- CUSTOM -->
+<script type="text/javascript">
+        $(document).ready(function() {
+            
+            let dataTable = new simpleDatatables.DataTable(document.getElementById("table1"));
+            // Move "per page dropdown" selector element out of label
+            // to make it work with bootstrap 5. Add bs5 classes.
+            function adaptPageDropdown() {
+                const selector = dataTable.wrapper.querySelector(".dataTable-selector");
+                selector.parentNode.parentNode.insertBefore(selector, selector.parentNode);
+                selector.classList.add("form-select");
+            }
 
+            // Add bs5 classes to pagination elements
+            function adaptPagination() {
+                const paginations = dataTable.wrapper.querySelectorAll(
+                    "ul.dataTable-pagination-list"
+                );
+
+                for (const pagination of paginations) {
+                    pagination.classList.add(...["pagination", "pagination-primary"]);
+                }
+
+                const paginationLis = dataTable.wrapper.querySelectorAll(
+                    "ul.dataTable-pagination-list li"
+                );
+
+                for (const paginationLi of paginationLis) {
+                    paginationLi.classList.add("page-item");
+                }
+
+                const paginationLinks = dataTable.wrapper.querySelectorAll(
+                    "ul.dataTable-pagination-list li a"
+                );
+
+                for (const paginationLink of paginationLinks) {
+                    paginationLink.classList.add("page-link");
+                }
+            }
+
+            // Patch "per page dropdown" and pagination after table rendered
+            dataTable.on("datatable.init", function () {
+                adaptPageDropdown();
+                adaptPagination();
+            });
+
+            // Re-patch pagination after the page was changed
+            dataTable.on("datatable.page", adaptPagination);
+
+            destoryFunctions = (ID) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('body').loadingModal({
+                            text: 'Loading...'
+                        });
+                        $('body').loadingModal('show');
+
+                        $.ajax({
+                            type: "POST",
+                            url: "{!! $properties->activeUrl !!}" + ("/destroy"),
+                            data: {
+                                _token: token,
+                                id: ID,
+                            },
+                            headers: {'X-CSRF-TOKEN': token},
+                            success: (data) => {
+                                $('body').loadingModal('hide');
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Deleted!",
+                                    text: "Data has been deleted",
+                                }).then((result) => {
+                                    location.reload();
+                                })
+                            },
+                            error: (xhr) => {
+                                const res = JSON.parse(xhr.responseText);
+                                console.log(res);
+                                
+                                $('body').loadingModal('hide')
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Error",
+                                    text: res.message,
+                                })
+                            },
+                        });
+                    }
+                })
+            }
+        });
+    </script>
 </body>
 
 </html>
