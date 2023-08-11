@@ -50,19 +50,6 @@ class StoreGroupController extends Controller
      */
     public function openForm()
     {
-        if(session("iLogged") == false || session("iLogged") == null){
-            return redirect('login');
-        }
-
-        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
-        if($permission->create == false){
-            return view('Errors.permission-denied',
-                array(
-                    "properties" => $this->properties,
-                )
-            );
-        }
-
         $store = DB::table("im_store_master")->select("*")
         ->whereNull("deleted_at")
         ->where("active_flag", "active")
@@ -71,12 +58,11 @@ class StoreGroupController extends Controller
 
         // return $spg;
 
-        return view('Master.StoreGroup.add-storeGroup',
+        return view('Master.StoreGroup.storeGroup-form',
             array(
                 "properties" => $this->properties,
                 "store" => $store,
-                "permission" => $permission,
-                "disabled" => "",
+                // "disabled" => "",
             )
         );
     }

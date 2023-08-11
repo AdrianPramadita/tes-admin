@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <meta charset="utf-8" />
+      <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Bootstrap Admin Template : Dream</title>
-    <!-- Bootstrap Styles-->
+	<!-- Bootstrap Styles-->
     <link href="{{ asset ('style/assets/css/bootstrap.css') }}" rel="stylesheet" />
-    <!-- FontAwesome Styles-->
-    <link href="{{ asset('style/assets/css/font-awesome.css') }}" rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-    <link href="{{ asset ('style/assets/js/morris/morris-0.4.3.min.css') }}" rel="stylesheet" />
-    <!-- Custom Styles-->
+     <!-- FontAwesome Styles-->
+    <link href="{{ asset ('style/assets/css/font-awesome.css') }}" rel="stylesheet" />
+        <!-- Custom Styles-->
     <link href="{{ asset ('style/assets/css/custom-styles.css') }}" rel="stylesheet" />
-    <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- Google Fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
-
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -245,7 +241,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="/"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a href="/"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
@@ -261,7 +257,7 @@
                         <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.html"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="form.html" class="active-menu"><i class="fa fa-edit"></i> Forms </a>
                     </li>
 
 
@@ -301,200 +297,225 @@
 
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
+        <div id="page-wrapper" >
             <div id="page-inner">
-
-
-                <div class="row">
+			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Store Group
+                            Forms Page <small>Best form elements.</small>
                         </h1>
                     </div>
-                </div>
-                <!-- /. ROW  -->
-
-                <div class="row">
-                    <div class="col-md-8 col-sm-12 col-xs-12">
-                        <div class="card-header">
+                </div> 
+                 <!-- /. ROW  -->
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Basic Form Elements
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <h4 class="card-title"></h4>
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>Text Input</label>
+                                            <input class="form-control">
+                                            <p class="help-block">Example block-level help text here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Text Input with Placeholder</label>
+                                            <input class="form-control" placeholder="Enter text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Static Control</label>
+                                            <p class="form-control-static">email@example.com</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>File input</label>
+                                            <input type="file">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Text area</label>
+                                            <textarea class="form-control" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Checkboxes</label>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Checkbox 1
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Checkbox 2
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="">Checkbox 3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Inline Checkboxes</label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">1
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">2
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">3
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Radio Buttons</label>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Radio 1
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Inline Radio Buttons</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked="">1
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Selects</label>
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Multiple Selects</label>
+                                            <select multiple="" class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                    </form>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12" style="display: flex; justify-content: flex-end">
-                                    <div class="buttons">
-                                            <a href="group-store/create" class="btn icon icon-left btn-primary">Add Group</a>
-                                    </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <h4>Disabled Form States</h4>
+                                    <form role="form">
+                                        <fieldset disabled="">
+                                            <div class="form-group">
+                                                <label for="disabledSelect">Disabled input</label>
+                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="disabledSelect">Disabled select menu</label>
+                                                <select id="disabledSelect" class="form-control">
+                                                    <option>Disabled select</option>
+                                                </select>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox">Disabled Checkbox
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
+                                        </fieldset>
+                                    </form>
+                                    <h4>Form Validation States</h4>
+                                    <form role="form">
+                                        <div class="form-group has-success">
+                                            <label class="control-label" for="inputSuccess">Input with success</label>
+                                            <input type="text" class="form-control" id="inputSuccess">
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label class="control-label" for="inputWarning">Input with warning</label>
+                                            <input type="text" class="form-control" id="inputWarning">
+                                        </div>
+                                        <div class="form-group has-error">
+                                            <label class="control-label" for="inputError">Input with error</label>
+                                            <input type="text" class="form-control" id="inputError">
+                                        </div>
+                                    </form>
+                                    <h4>Input Groups</h4>
+                                    <form role="form">
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="text" class="form-control" placeholder="Username">
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-addon">.00</span>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-addon">.00</span>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </div>
+                                <!-- /.col-lg-6 (nested) -->
                             </div>
+                            <!-- /.row (nested) -->
                         </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                store group
-                            </div> 
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Group Code</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                                <th style="text-align: right;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($data as $el)
-                                                <tr>
-                                                    <td>{{ $el->store_group_code }}</td>
-                                                    <td>{{ $el->store_group_desc }}</td>
-                                                    <td>
-                                                        <span class="badge bg-success">Active</span>
-                                                    </td>
-                                                    <td style="display: flex; justify-content: flex-end">
-                                                        <div class="buttons">
-                                                            
-                                                            <a href="{{ $properties->activeUrl }}/update?id={{$el->id}}&disabled=" class="btn icon btn-primary"><i class="bi bi-pencil"></i></a>
-
-                                                            <a href="{{ $properties->activeUrl }}/update?id={{$el->id}}&disabled=disabled" class="btn icon btn-secondary"><i class="bi bi-info-circle"></i></a>
-                                                            
-                                                            <button type="button" class="btn icon btn-danger" onClick="destoryFunctions({{$el->id}})"><i class="bi bi-x"></i></button>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
-                <!-- /. ROW  -->
-				<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /. PAGE INNER  -->
+			<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+			</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
         </div>
-        <!-- /. PAGE WRAPPER  -->
-    </div>
-    <!-- /. WRAPPER  -->
+     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="{{ asset('style/assetsjs/jquery-1.10.2.js') }}"></script>
-    <!-- Bootstrap Js -->
-    <script src="{{ asset('style/assetsjs/bootstrap.min.js') }}"></script>
+    <script src="{{ asset ('style/assets/js/jquery-1.10.2.js') }}"></script>
+      <!-- Bootstrap Js -->
+    <script src="{{ asset ('style/assets/js/bootstrap.min.js') }}"></script>
     <!-- Metis Menu Js -->
-    <script src="{{ asset('style/assetsjs/jquery.metisMenu.js') }}"></script>
-    <!-- Morris Chart Js -->
-    <script src="{{ asset('style/assetsjs/morris/raphael-2.1.0.min.js') }}"></script>
-    <script src="{{ asset('style/assetsjs/morris/morris.js') }}"></script>
-    <!-- Custom Js -->
-    <script src="{{ asset('style/assets/js/custom-scripts.js') }}"></script>
-
-<!-- CUSTOM -->
-<script type="text/javascript">
-        $(document).ready(function() {
-            
-            let dataTable = new simpleDatatables.DataTable(document.getElementById("table1"));
-            // Move "per page dropdown" selector element out of label
-            // to make it work with bootstrap 5. Add bs5 classes.
-            function adaptPageDropdown() {
-                const selector = dataTable.wrapper.querySelector(".dataTable-selector");
-                selector.parentNode.parentNode.insertBefore(selector, selector.parentNode);
-                selector.classList.add("form-select");
-            }
-
-            // Add bs5 classes to pagination elements
-            function adaptPagination() {
-                const paginations = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list"
-                );
-
-                for (const pagination of paginations) {
-                    pagination.classList.add(...["pagination", "pagination-primary"]);
-                }
-
-                const paginationLis = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list li"
-                );
-
-                for (const paginationLi of paginationLis) {
-                    paginationLi.classList.add("page-item");
-                }
-
-                const paginationLinks = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list li a"
-                );
-
-                for (const paginationLink of paginationLinks) {
-                    paginationLink.classList.add("page-link");
-                }
-            }
-
-            // Patch "per page dropdown" and pagination after table rendered
-            dataTable.on("datatable.init", function () {
-                adaptPageDropdown();
-                adaptPagination();
-            });
-
-            // Re-patch pagination after the page was changed
-            dataTable.on("datatable.page", adaptPagination);
-
-            destoryFunctions = (ID) => {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('body').loadingModal({
-                            text: 'Loading...'
-                        });
-                        $('body').loadingModal('show');
-
-                        $.ajax({
-                            type: "POST",
-                            url: "{!! $properties->activeUrl !!}" + ("/destroy"),
-                            data: {
-                                _token: token,
-                                id: ID,
-                            },
-                            headers: {'X-CSRF-TOKEN': token},
-                            success: (data) => {
-                                $('body').loadingModal('hide');
-
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Deleted!",
-                                    text: "Data has been deleted",
-                                }).then((result) => {
-                                    location.reload();
-                                })
-                            },
-                            error: (xhr) => {
-                                const res = JSON.parse(xhr.responseText);
-                                console.log(res);
-                                
-                                $('body').loadingModal('hide')
-
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: res.message,
-                                })
-                            },
-                        });
-                    }
-                })
-            }
-        });
-    </script>
+    <script src="{{ asset ('style/assets/js/jquery.metisMenu.js') }}"></script>
+      <!-- Custom Js -->
+    <script src="{{ asset ('style/assets/js/custom-scripts.js') }}"></script>
+    
+   
 </body>
-
 </html>
