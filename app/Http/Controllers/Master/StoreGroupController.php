@@ -178,19 +178,6 @@ class StoreGroupController extends Controller
      */
     public function edit(Request $request)
     {
-        if(session("iLogged") == false || session("iLogged") == null){
-            return redirect('login');
-        }
-
-        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
-        if($permission->update == false && $request->query('disabled') == ""){
-            return view('Errors.permission-denied',
-                array(
-                    "properties" => $this->properties,
-                )
-            );
-        }
-
         try{
             $grpStore = DB::table("im_store_group")->select("*")->where("id", $request->query('id'))->first();
 
@@ -200,7 +187,7 @@ class StoreGroupController extends Controller
                     "id" => $request->query('id'),
                     "data" => $grpStore,
                     "disabled" => $request->query('disabled'),
-                    "permission" => $permission,
+                    // "permission" => $permission,
                 )
             );
         }catch(\Exception $e){
@@ -222,22 +209,8 @@ class StoreGroupController extends Controller
      */
     public function update(Request $request)
     {
-        if(session("iLogged") == false || session("iLogged") == null){
-            return redirect('login');
-        }
-
-        $this->validate($request, [
-            'group_code' => 'required|max:255',
-        ]);
-
-        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
-
         DB::beginTransaction();
         try{
-            if($permission->update == false){
-                throw new Exception('You dont have permission to write data. Please contact your administrator');
-            }
-
             /** data salesman */
             // $grpStore = DB::table('im_store_group')->select('*')->where("id", $request->id)->first();
 
@@ -272,24 +245,16 @@ class StoreGroupController extends Controller
      */
     public function destroy(Request $request)
     {
-        if(session("iLogged") == false || session("iLogged") == null){
-            return redirect('login');
-        }
-        
-        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
-
         DB::beginTransaction();
         try{
-            if($permission->destroy == false){
-                throw new Exception('You dont have permission to write data. Please contact your administrator');
-            }
 
-            DB::table("im_store_group")
+            $str_group = DB::table("im_store_group")
             ->where("id", $request->id)
             ->update([
                 "deleted_by" => session("user_id"),
                 "deleted_at" => now(),
             ]);
+            dd($str_group);
 
             DB::commit();
             return response([

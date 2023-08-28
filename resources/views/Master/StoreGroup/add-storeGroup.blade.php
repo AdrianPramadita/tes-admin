@@ -370,14 +370,14 @@
             },
             cache: false,
             headers: {'X-CSRF-TOKEN': token},
-            // success: function(dataResult) {
-            //     var dataResult = JSON.parse(dataResult);
-            //     if(dataResult.statusCode==200){
-            //         windows.location = "/master/group-store";
-            //     }else{
-            //         alert("Error!");    
-            //     }
-            // }
+            success: function(dataResult) {
+                var dataResult = JSON.parse(dataResult);
+                if(dataResult.statusCode==200){
+                    windows.location = "/master/group-store/create";
+                }else{
+                    alert("Error!");    
+                }
+            }
         });
     });
     // console.log(submitData())
