@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="{!! URL::asset('assets/img/logo/admin.jpg') !!}">
+    <link rel="shortcut icon" type="image/x-icon" href="{!! URL::asset('assets/img/logo/admin.jpg') !!}"/>
     <title>Dream</title>
     <!-- Bootstrap Styles-->
     <link href="{{ asset ('style/assets/css/bootstrap.css') }}" rel="stylesheet" />
@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Dream</a>
+                <a class="navbar-brand" href="/">Try</a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
+use App\Models\strGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Zend\Crypt\Password\Bcrypt;
@@ -58,11 +59,11 @@ class StoreGroupController extends Controller
 
         // return $spg;
 
-        return view('Master.StoreGroup.storeGroup-form',
+        return view('Master.StoreGroup.add-storeGroup',
             array(
                 "properties" => $this->properties,
                 "store" => $store,
-                // "disabled" => "",
+                "disabled" => "",
             )
         );
     }
@@ -74,44 +75,32 @@ class StoreGroupController extends Controller
      */
     public function create(Request $request)
     {
-        if(session("iLogged") == false || session("iLogged") == null){
-            return redirect('login');
-        }
-
-        $this->validate($request, [
+        // dd($request->all());
+        $request->validate([
             'group_code' => 'required|max:255',
+            'group_desc' => 'required|max:255',
         ]);
 
-        $permission = (new PermissionuserHandler)->getPermissionFromCurrentUrl($this->properties->activeUrl);
+        $str_group = [
+            "store_group_code" => $request->group_code,
+            "store_group_desc" => $request->group_desc,
+            "status" => "active",
+            "created_by" => session("user_id"),
+            "created_at" => now(),
+        ];
+        strGroup::insert($str_group);
+        // return $str_group;
 
-        DB::beginTransaction();
-        try{
-            if($permission->create == false){
-                throw new \Exception('You dont have permission to write data. Please contact your administrator');
-            }
-
-            // $bcrypt = new Bcrypt();
-            // $securePass = $bcrypt->create($request->password);
-
-            DB::table("im_store_group")->insert([
-                "store_group_code" => $request->group_code,
-                "store_group_desc" => $request->group_desc,
-                "status" => "active",
-                "created_by" => session("user_id"),
-                "created_at" => now(),
-            ]);
-
-            DB::commit();
-            return response([
-                "message" => "Success! data has been saved.",
-            ])->setStatusCode(200);
-        }catch(\Exception $e){
-            DB::rollback();
-            return response([
-                "message" => "Failed! ". $e->getMessage(),
-                "errors" => $e,
-            ])->setStatusCode(500);
+        if($str_group){
+            return back()->with('success');
+        }else{
+            return back()->with('failed');
         }
+        return json_encode(
+        array(
+            "statusCode" => 200
+        )
+        );
     }
 
     /**
@@ -120,9 +109,54 @@ class StoreGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        
+        // $request->validate([
+        //     'group_code' => 'required|max:255',
+        //     'group_desc' => 'required|max:255',
+        // ]);
+
+        // $str_group = DB::table("im_store_group")->insert([
+        //     "store_group_code" => $request->group_code,
+        //     "store_group_desc" => $request->group_desc,
+        //     "status" => "active",
+        //     "created_by" => session("user_id"),
+        //     "created_at" => now(),
+        // ]);
+        // return $str_group;
+
+        // if($str_group){
+        //     return back()->with('success');
+        // }else{
+        //     return back()->with('failed');
+        // }
+
+        // DB::beginTransaction();
+        // try{
+        //     // $bcrypt = new Bcrypt();
+        //     // $securePass = $bcrypt->create($request->password);
+
+        //     $str_group = DB::table("im_store_group")->insert([
+        //         "store_group_code" => $request->group_code,
+        //         "store_group_desc" => $request->group_desc,
+        //         "status" => "active",
+        //         "created_by" => session("user_id"),
+        //         "created_at" => now(),
+        //     ]);
+        //     return $str_group;
+
+        //     DB::commit();
+        //     return response([
+        //         "message" => "Success! data has been saved.",
+        //     ])->setStatusCode(200);
+        // }catch(\Exception $e){
+        //     DB::rollback();
+        //     return response([
+        //         "message" => "Failed! ". $e->getMessage(),
+        //         "errors" => $e,
+        //     ])->setStatusCode(500);
+        // }
     }
 
     /**

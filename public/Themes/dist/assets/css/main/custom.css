@@ -1,0 +1,11 @@
+.choices__inner{
+    height: 30px;
+    padding-top: 3px;
+    padding-right: 7.5px;
+    padding-bottom: 3px;
+    padding-left: 7.5px;
+}
+
+.text-right{
+    text-align: right !important;
+}
