@@ -377,8 +377,8 @@
 
                                                                 <a href="{{ $properties->activeUrl }}/update?id={{$el->id}}&disabled=disabled" class="btn icon btn-secondary"><i class="bi bi-info-circle"></i></a>
                                                                 
-                                                                <button type="button" class="btn icon btn-danger" id="btn-danger"><i class="bi bi-x"></i></button>
-                                                                
+                                                                <a href="{{ $properties->activeUrl }}/destroy?id={{$el->id}}" class="btn icon btn-danger" id="btn-danger"><i class="bi bi-x"></i></a>
+                                                            
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -415,43 +415,26 @@
 
 <!-- CUSTOM -->
 <script type="text/javascript">
-            $("#btn-danger").on('click', function(ID) {
-            const token = "{!! csrf_token() !!}";
-
-            Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('body').loadingModal({
-                            text: 'Loading...'
-                        });
-                        $('body').loadingModal('show');
-            
-                        $.ajax({
-                            type: "POST",
-                            url: "{!! $properties->activeUrl !!}" + ("/destroy"),
-                            data: {
-                                _token: token,
-                                id: ID,
-                            },
-                            cache: false,
-                            headers: {'X-CSRF-TOKEN': token},
-                            success: function(dataResult) {
-                                var dataResult = JSON.parse(dataResult);
-                                if(dataResult.statusCode==200){
-                                    windows.location = "/master/group-store/destroy";
-                                }else{
-                                    alert("Error!");    
-                                }
-                            }
-                        });
-                    };
+            $("#btn-danger").on('click', function() {
+                const token = "{!! csrf_token() !!}";
+                
+                $.ajax({
+                    type: "POST",
+                    url: "{!! $properties->activeUrl !!}" + ("/destroy"),
+                    data: {
+                        _token: token,
+                        id: storeGrpID,
+                    },
+                    cache: false,
+                    headers: {'X-CSRF-TOKEN': token},
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if(dataResult.statusCode==200){
+                            windows.location = "/master/group-store";
+                        }else{
+                            alert("Error!");    
+                        }
+                    }
                 });
             });
 

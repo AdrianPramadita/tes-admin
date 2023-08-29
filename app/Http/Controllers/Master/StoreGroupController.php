@@ -247,14 +247,13 @@ class StoreGroupController extends Controller
     {
         DB::beginTransaction();
         try{
-
-            $str_group = DB::table("im_store_group")
-            ->where("id", $request->id)
-            ->update([
-                "deleted_by" => session("user_id"),
-                "deleted_at" => now(),
-            ]);
-            dd($str_group);
+                $str_group = DB::table("im_store_group")
+                ->where("id", $request->id)
+                ->update([
+                    "deleted_by" => session("user_id"),
+                    "deleted_at" => now(),
+                ]);
+                // dd($str_group);
 
             DB::commit();
             return response([

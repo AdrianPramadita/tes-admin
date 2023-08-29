@@ -35,4 +35,4 @@ Route::get('/master/group-store/save-group', 'Master\StoreGroupController@openFo
 Route::post('/master/group-store/create', 'Master\StoreGroupController@create');
 Route::get('/master/group-store/update', 'Master\StoreGroupController@edit');
 Route::post('/master/group-store/update', 'Master\StoreGroupController@update');
-Route::post('/master/group-store/destroy', 'Master\StoreGroupController@destroy');
+Route::get('/master/group-store/destroy', 'Master\StoreGroupController@destroy');
